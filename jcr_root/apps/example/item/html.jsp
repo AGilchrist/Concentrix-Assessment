@@ -87,6 +87,9 @@ function showPlayers()
     	button.innerHTML = "Hide all players";
     }
 }
+
+window.onunload = function(){
+	resourceResolver.close();}
 </script>
 
 <h1><%= resource.adaptTo(ValueMap.class).get("jcr:title") %></h1>
@@ -139,7 +142,7 @@ Resource res = null;
 boolean exists = false;
 Map<String,Object> properties = new HashMap<String,Object>();
 properties.put("jcr:primaryType", "nt:unstructured");
-properties.put("sling:resourceType", "example/item");
+properties.put("sling:resourceType", "example/item/");
 
 if (createName != null && createName.length() > 0){
 	 if(resourceResolver.hasChildren(myResource)){
