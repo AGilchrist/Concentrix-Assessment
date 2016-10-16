@@ -26,7 +26,7 @@
 <%@page language="java" import="java.util.ArrayList" %>
 <sling:defineObjects/>
 <%
-    Resource myResource = resourceResolver.getResource("example/item/players");
+    Resource myResource = resourceResolver.getResource("example/item");
 	List<String> playerNames = new ArrayList<String>();
 	if (myResource != null){
 		if(resourceResolver.hasChildren(myResource)){
@@ -34,6 +34,8 @@
 				playerNames.add(r.getName());
 			}
 		}
+	} else {
+		%> <p> doesn't exist </p><%
 	}
 %>
 
@@ -106,6 +108,16 @@ Name: <input type="text" id="createName" name="createName">
 <input type="submit" value="Create">
 </form>
 
+<form id="deletePlayerDialogue" style="display:none">
+Player: <select name="deleteName">
+<% for (String name : playerNames) { %>
+	<option><%= name %></option>
+	<% } %>
+</select>
+<br><br>
+<input type="submit" value="delete">
+</form>
+
 <form id="editPlayerDialogue" style="display:none">
 Player: <select name="oldName">
 <% for (String name : playerNames) { %>
@@ -116,16 +128,6 @@ Player: <select name="oldName">
 New name: <input type="text" id="newName" name="newName">
 <br><br>
 <input type="submit" value="edit">
-</form>
-
-<form id="deletePlayerDialogue" style="display:none">
-Player: <select name="deleteName">
-<% for (String name : playerNames) { %>
-	<option><%= name %></option>
-	<% } %>
-</select>
-<br><br>
-<input type="submit" value="delete">
 </form>
 
 <%
